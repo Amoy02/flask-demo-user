@@ -107,6 +107,37 @@ def flash_errors(form):
                 error
             ), 'danger')
 
+@app.route('/api/upload', methods=["POST"])
+def upload():
+    form=UploadForm()
+    if request.method == "POST" and form.validate_on_submit():
+        description = form.description.data
+        file = form.photo.data
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        result = {"message": "File Upload Successful", "filename": filename, "description": description}
+        return jsonify(result=result)
+    error_collection = form_errors(form)
+    error = {"errors":[ error_collection]}
+    return  jsonify(errors=error)
+    """flash('You have successfully filled out the form', 'success')
+         flash_errors(myform)"""
+
+
+# Here we define a function to collect form errors from Flask-WTF
+# which we can later use
+def form_errors(form):
+    error_messages = []
+    """Collects form errors"""
+    for field, errors in form.errors.items():
+        for error in errors:
+            message = u"Error in the %s field - %s" % (
+                    getattr(form, field).label.text,
+                    error
+                )
+            error_messages.append(message)
+
+    return error_messages
 
 ###
 # The functions below should be applicable to all Flask apps.
