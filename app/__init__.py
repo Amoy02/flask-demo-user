@@ -3,17 +3,17 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "this is a super secure key"  # you should make this more random and unique
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://user:password@localhost/database"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # added just to suppress a warning
+app.config['SECRET_KEY'] = "v\xf9\xf7\x11\x13\x18\xfaMYp\xed_\xe8\xc9w\x06\x8e\xf0f\xd2\xba\xfd\x8c\xda"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://admin:password123@localhost/photogram"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True # added just to suppress a warning
 
 db = SQLAlchemy(app)
 
 # Flask-Login login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'  # necessary to tell Flask-Login what the default route is for the login page
-login_manager.login_message_category = "info"  # customize the flash message category
+login_manager.login_view = 'login'
 
 app.config.from_object(__name__)
 from app import views
+
