@@ -1,7 +1,11 @@
 from flask_wtf import FlaskForm
+#from wtforms import StringField,Form,validators,SubmitField
+from wtforms.validators import DataRequired,Email
+from wtforms import StringField,TextField, validators, TextAreaField, PasswordField
+from wtforms import StringField, IntegerField, FileField, SelectField
+from wtforms.validators import InputRequired
+from wtforms.fields.html5 import EmailField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, PasswordField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired, Email
 
 #Registration form to allow users to sign up
 class RegisterForm(FlaskForm):
@@ -20,4 +24,9 @@ class RegisterForm(FlaskForm):
 class PostsForm(FlaskForm):
     caption = TextAreaField('Caption', validators=[DataRequired()])
     photo = FileField('Photo', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
-    submit = SubmitField("Submit")
+    #submit = SubmitField("Submit")
+    
+#Login form to allow users to login
+class LoginForm(FlaskForm):
+    username=TextField('Username',validators=[DataRequired()])
+    password=PasswordField('Password',validators=[DataRequired()])

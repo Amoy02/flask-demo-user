@@ -21,7 +21,7 @@ class Users(db.Model):
     likes = db.relationship('Likes', backref='Users', passive_deletes=True, lazy=True)
     followers = db.relationship('Follows', backref='Users', passive_deletes=True, lazy=True)
 
-    def __init__(self, username, password, firstname, lastname, email, location, biography, profile_photo):
+    def __init__(self, username, password, firstname, lastname, email, location, biography, profile_photo,joined_on):
         self.username = username
         self.password = generate_password_hash(password, method='pbkdf2:sha256')
         self.firstname = firstname
@@ -30,6 +30,7 @@ class Users(db.Model):
         self.location = location
         self.biography = biography
         self.profile_photo = profile_photo
+        self.joined_on = joined_on
 
     def is_authenticated(self):
         return True
