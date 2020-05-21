@@ -20,6 +20,11 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] =  "v\xf9\xf7\x11\x13\x18\xfaMYp\xed_\xe8\xc9w\x06\x8e\xf0f\xd2\xba\xfd\x8c\xda"
+
+#heroku postgresql 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://seqydqeaosgiaa:94fab157e29ee4ed6357ad9578a400112316d3fd333a724de5d5ae1a5d110568@ec2-18-235-20-228.compute-1.amazonaws.com:5432/d3hh7qka0td7gv"
+
+#postgres
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://photogram:photogram@localhost/photogram"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True 
 
@@ -161,8 +166,7 @@ def register():
         email = data['email'], 
         location = data['email'],
         biography = data['biography']),
-        #profile_photo = data['profile_photo'],
-        #joined_on = data['joined_on']
+        
 
     db.session.add(user)
     db.session.commit()
