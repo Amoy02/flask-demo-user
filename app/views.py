@@ -252,6 +252,12 @@ def form_errors(form):
 # The functions below should be applicable to all Flask apps.
 ###
 
+# This callback is used to reload the user object from the user ID stored in the session.
+# It should take the unicode ID of a user, and return the corresponding user object.
+@login_manager.user_loader
+def load_user(id):
+    return UserProfile.query.get(int(id))
+
 
 @app.route('/<file_name>.txt')
 def send_text_file(file_name):
