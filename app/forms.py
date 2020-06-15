@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 #from wtforms import StringField,Form,validators,SubmitField
 from wtforms.validators import DataRequired,Email
 from wtforms import StringField,TextField, validators, TextAreaField, PasswordField
-from wtforms import StringField, IntegerField, FileField, SelectField
+from wtforms import StringField, IntegerField, FileField, SelectField, SubmitField
 from wtforms.validators import InputRequired
 from wtforms.fields.html5 import EmailField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
@@ -17,7 +17,7 @@ class RegisterForm(FlaskForm):
     location = StringField('Location', validators=[DataRequired()])
     biography = TextAreaField('Biography', validators=[DataRequired()])
     photo = FileField('Photo', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
-
+    submit = SubmitField('Register')
 
 #Posts Form for the Photogram 
 class PostsForm(FlaskForm):

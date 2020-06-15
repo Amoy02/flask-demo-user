@@ -296,11 +296,15 @@ const Register = Vue.component('registration',{
     <input type="file" class="form-control-file" id="photo">
   </div>
 <div class="form-group">
-    <input type="submit" name="submit" class="btn btn-success col-md-12" value="Register">
+    <button type="submit" class="btn btn-success col-md-12">Register</button>
+</div>
+<br>
+</div>
+</div>
+</div>
 </div>
 </form>
 
-</div>
 <div>
 `,
 data: function(){
@@ -317,7 +321,7 @@ data: function(){
   }
 },
 methods: {
-  uploadform:function(e) {
+  register:function(e) {
     e.preventDefault();
     this.errors = [];
     if(!this.username){this.errors.push("Username required.");}
@@ -329,8 +333,9 @@ methods: {
     if(!this.biography){this.errors.push("Biography required.");}
     if(!this.photo){this.errors.push("Photo required.");}
     
-    let uploadForm = document.getElementById('registrationForm');
-    let form_data = new FormData(uploadForm);
+    let registerForm = document.getElementById('registrationForm');
+    let form_data = new FormData(registerForm);
+    let self = this;
     fetch('/api/users/register', {
       method: 'POST',
       body: form_data,

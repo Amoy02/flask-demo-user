@@ -9,12 +9,12 @@ from app import app, db, login_manager
 from functools import wraps
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
-#from app.forms import RegisterForm, PostsForm, LoginForm
+from app.forms import *
 from app.models import Users, Likes, Follows, Posts
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
-#import jwt
+import jwt
 
 
 ###
