@@ -9,7 +9,7 @@ from app import app, db, login_manager
 from functools import wraps
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
-#from app.forms import RegisterForm, PostsForm
+#from app.forms import RegisterForm, PostsForm, LoginForm
 from app.models import Users, Likes, Follows, Posts
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -53,7 +53,7 @@ def token_authenticate(function):
 #Registration API route
 @app.route('/api/users/register', methods= ['POST'])
 def register():
-    registerForm = RegistrationForm()
+    registerForm = RegisterForm()
     if (request.method == 'POST') and  registerForm.validate_on_submit() :
         
        

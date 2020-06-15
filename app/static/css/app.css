@@ -14,6 +14,20 @@
 }
 
 
+#register .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  background-color: white;
+  border: 1px solid #9C9C9C;
+}
+#register .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#register .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+
 body {
   padding-top: 5rem;
   background-color: rgb(247, 237, 225);
@@ -53,11 +67,10 @@ body {
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px grey;
   border: 1px solid grey;
-  padding: 30px;
+  padding: 40px;
 }
 
 .left-component{
-  /* background-color: white; */
   float: left;
   width: 49%;
 }

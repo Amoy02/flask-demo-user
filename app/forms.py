@@ -17,14 +17,12 @@ class RegisterForm(FlaskForm):
     location = StringField('Location', validators=[DataRequired()])
     biography = TextAreaField('Biography', validators=[DataRequired()])
     photo = FileField('Photo', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
-    register = SubmitField("Register")
 
 
 #Posts Form for the Photogram 
 class PostsForm(FlaskForm):
     caption = TextAreaField('Caption', validators=[DataRequired()])
     photo = FileField('Photo', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
-    #submit = SubmitField("Submit")
     
 #Login form to allow users to login
 class LoginForm(FlaskForm):
