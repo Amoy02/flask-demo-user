@@ -2,6 +2,29 @@ from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash
 
+
+class Posts(db.Model):
+    __tablename__ = "Posts"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id', ondelete='CASCADE'), nullable=False)
+    photo = db.Column(db.String(200), nullable=False)
+    caption = db.Column(db.String(1000), nullable=False)
+    created_on = db.Column(db.DateTime, nullable=False, default=datetime.now())
+
+    #Relationship between a post and its likes
+    likes = db.relationship('Likes', backref='Posts', passive_deletes=True, lazy=True)
+
+    def __init__(self, photo, caption):
+        self.photo = photo
+        self.caption = caption
+
+    def get_id(self):
+        try:
+            return unicode(self.id)  # python 2 support
+        except NameError:
+            return str(self.id)  # python 3 support
+
 class Users(db.Model):
     __tablename__ = "Users"
 
@@ -49,29 +72,6 @@ class Users(db.Model):
 
     def __repr__(self):
         return '<User %r>' % (self.username)
-
-
-class Posts(db.Model):
-    __tablename__ = "Posts"
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('Users.id', ondelete='CASCADE'), nullable=False)
-    photo = db.Column(db.String(200), nullable=False)
-    caption = db.Column(db.String(1000), nullable=False)
-    created_on = db.Column(db.DateTime, nullable=False, default=datetime.now())
-
-    #Relationship between a post and its likes
-    likes = db.relationship('Likes', backref='Posts', passive_deletes=True, lazy=True)
-
-    def __init__(self, photo, caption):
-        self.photo = photo
-        self.caption = caption
-
-    def get_id(self):
-        try:
-            return unicode(self.id)  # python 2 support
-        except NameError:
-            return str(self.id)  # python 3 support
 
 
 class Likes(db.Model):

@@ -50,6 +50,8 @@ def token_authenticate(function):
 # Routing for your application.
 ###
 
+#Registration API route
+@app.route('/api/users/register', methods= ['POST'])
 def register():
     registerForm = RegistrationForm()
     if (request.method == 'POST') and  registerForm.validate_on_submit() :
@@ -89,15 +91,35 @@ def logout():
     info = [{'message': "User successfully logged out."}]
     return jsonify(info = info) 
 
+#Login API Route
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    loginForm = LoginForm()
+    
+    if (request.method == 'POST') and (loginForm.validate_on_submit()):
+        username = request.loginForm['username']
+        password = request.loginForm['password']
+        user = Users.query.filter_by(username = username).first()
+        if user is not None and check_password_hash(user.password, password):
+            # login_user(user)
+            payload = {'user': user.username}
+            token = jwt.encode(payload,app.config['SECREY KEY'], algorithm ="HS256")
+            info = [{'token': token, 'message': "User successfully logged in."}]
+            return jsonify(info = info)
+        else:
+            # error = [{'error': "Incorrect username or passowrd."}]
+            return jsonify(error = "Incorrect username or password.")
+            
+    return jsonify(form_errors(loginForm))
 
 @app.route('/api/users/<int:user_id>/posts', methods= ['POST'])
 # @login_required
 @token_authenticate
 def add_post(user_id):
 
-        creatPost = CreatePostForm()
+        postForm = PostsForm()
         
-        if (request.method == 'POST') and (creatPost.validate_on_submit()):
+        if (request.method == 'POST') and (postForm.validate_on_submit()):
             file = request.files['photo']
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['POSTS_UPLOAD_FOLDER'], filename))
@@ -111,7 +133,7 @@ def add_post(user_id):
             info = [{'message': "Successfully created a new post"}]
             return jsonify(info = info)
             
-        return jsonify(form_errors(creatPost))
+        return jsonify(form_errors(postForm))
 
 @app.route('/api/users/<int:user_id>/posts', methods=['GET'])
 # @login_required
